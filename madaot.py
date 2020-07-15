@@ -52,7 +52,7 @@ def learnClassifAdaptGrad(X_s, y_s, X_t, delta, zeta, w_sol= None, Gamma_sol= No
     class_weights, _ = classWeights(y_s)
         
     d = X_s.shape[1]
-    if w_sol is None: w_sol = np.random.uniform(-1,1,d)
+    if w_sol is None: w_sol = np.ones(d)/d#np.random.uniform(-1,1,d)
             
     n = len(X_t)
 

@@ -28,7 +28,7 @@ def rotationMat(rotTheta):
 crossValidator = KFold(n_splits = 5)
 nRep = 1
 params = {
-            "delta": np.logspace(-2,2,10),
+            "delta": [1],#np.logspace(-2,2,10),
             "zeta": np.logspace(-2,-6,10),
             }
 for thetaDeg in np.arange(10,100,10): # for different angles

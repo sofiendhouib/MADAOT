@@ -40,7 +40,7 @@ nPts= 300
 nRep = 10
 kernel= True
 
-for thetaDeg in np.arange(10, 100, 10):
+for thetaDeg in np.arange(50, 60, 10):
     print("\nangle = %.0f"%thetaDeg)
     with open(resultsPath +"/theta%.0f/cross_valid"%thetaDeg, "rb") as resultsFile:
             results_raw = pkl.load(resultsFile)
