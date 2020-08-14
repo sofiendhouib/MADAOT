@@ -71,7 +71,7 @@ X_t_proj = K[nPts:, :]
     
 
 ims = []
-for delta in np.linspace(0, 1, 41):
+for delta in np.linspace(0, 1, 101):
     print("\nangle = %.0f"%thetaDeg)
     with open(resultsPath +"/theta%.0f/cross_valid"%thetaDeg, "rb") as resultsFile:
             results_raw = pkl.load(resultsFile)
@@ -136,8 +136,8 @@ for delta in np.linspace(0, 1, 41):
     oneD_s = madaot.decisionFunc(X_s_proj)
     oneD_t = madaot.decisionFunc(X_t_proj)
     
-    distplot(oneD_s)
-    distplot(oneD_t)
+    distplot(oneD_s, color= 'b')
+    distplot(oneD_t, color= 'r')
     ax2.set_title("$h(x)$ distribution")
     ax2.legend(["source", "target"])
     

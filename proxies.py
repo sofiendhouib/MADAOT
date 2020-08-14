@@ -47,21 +47,33 @@ def derSmAbs(x):
 #%% Plotting the proxies
     
 
-# from matplotlib import pyplot as plt
-# vec =  np.linspace(-2e-1,2e-1,101)
+from matplotlib import pyplot as plt
+import numpy as np
 
-# fig = plt.figure()
-# plt.plot(vec, pos(vec), '--')
-# plt.plot(vec, smPos(vec))
-# plt.legend(["positive part", "smooth proxy"])
-# plt.ticklabel_format(useMathText= True, useOffset= True)
-# plt.grid('on')
-# plt.savefig("pos_proxy.pdf", format = "pdf", bbox_inches='tight')
+plt.rcParams.update({
+    "pgf.texsystem": "pdflatex",
+    "pgf.preamble": [
+         r"\usepackage[utf8x]{inputenc}",
+         r"\usepackage[T1]{fontenc}",
+         r"\usepackage{cmbright}",
+         ]
+})
 
-# #%
-# fig = plt.figure()
-# plt.plot(vec, np.abs(vec), '--')
-# plt.plot(vec, smAbs(vec))
-# plt.legend(["absolute value", "smooth proxy"])
-# plt.grid('on')
-# plt.savefig("abs_proxy.pdf", format = "pdf", bbox_inches='tight')
+
+vec =  np.linspace(-2e-1,2e-1,101)
+
+fig = plt.figure()
+plt.plot(vec, pos(vec), '--')
+plt.plot(vec, smPos(vec))
+plt.legend(["positive part", "smooth proxy"])
+plt.ticklabel_format(useMathText= True, useOffset= True)
+plt.grid('on')
+plt.savefig("pos_proxy.pgf", format = "pdf", bbox_inches='tight')
+
+#%
+fig = plt.figure()
+plt.plot(vec, np.abs(vec), '--')
+plt.plot(vec, smAbs(vec))
+plt.legend(["absolute value", "smooth proxy"])
+plt.grid('on')
+plt.savefig("abs_proxy.pgf", format = "pgf", bbox_inches='tight')
