@@ -89,8 +89,6 @@ for thetaDeg in np.arange(10, 100, 10):
         gammaK = 0.5/np.mean(pdist(X_s, metric= "sqeuclidean")) # as suggested in the paper
         
         bestArgsDict = da.postprocessing(results_raw, 1)
-        bestArgsDict["delta"] = 1
-        bestArgsDict["zeta"] = 1e-5
         
         print(bestArgsDict)
         projSpace = np.vstack((X_s, X_t))
