@@ -19,7 +19,22 @@ if not path.exists(resultsPath):
     makedirs(resultsPath)
     
 import pickle as pkl
+
+plt.rcParams.update({"font.family":"serif",
+    "pgf.texsystem": "pdflatex",
+    "pgf.preamble": [
+         r"\usepackage[utf8]{inputenc}",
+         r"\usepackage[T1]{fontenc}",
+         r"\usepackage{serif}",
+         r"\usepackage{amsmath, amsfonts, amssymb, amstext, amsthm, bbm, mathtools}",
+         ]
+})
+
+plt.rc('text', usetex=True)
+
 plt.close('all')
+
+
 
 #%%
 def rotationMat(rotTheta):
@@ -37,10 +52,10 @@ def decisionFunc(gridRange, v, projSpace, transformer= None):
 
 #%%
 nPts= 300
-nRep = 10
+nRep = 1
 kernel= True
 
-for thetaDeg in np.arange(50, 60, 10):
+for thetaDeg in np.arange(10, 100, 10):
     print("\nangle = %.0f"%thetaDeg)
     with open(resultsPath +"/theta%.0f/cross_valid"%thetaDeg, "rb") as resultsFile:
             results_raw = pkl.load(resultsFile)
@@ -74,6 +89,8 @@ for thetaDeg in np.arange(50, 60, 10):
         gammaK = 0.5/np.mean(pdist(X_s, metric= "sqeuclidean")) # as suggested in the paper
         
         bestArgsDict = da.postprocessing(results_raw, 1)
+        bestArgsDict["delta"] = 1
+        bestArgsDict["zeta"] = 1e-5
         
         print(bestArgsDict)
         projSpace = np.vstack((X_s, X_t))
@@ -96,11 +113,13 @@ for thetaDeg in np.arange(50, 60, 10):
     fig = plt.figure()
     plt.imshow(adaptSurf, extent=(-2,2,-2,2) , origin= 'lower', cmap= 'RdBu')
     inds_s = np.argsort(y_s)
-    
     plt.scatter(*X_s[inds_s,].T, c= ["r"]*(nPts//2) + ["b"]*(nPts//2), edgecolors= "k", alpha= 0.5)
     
-    inds_test = np.argsort(y_test)
-    plt.scatter(*X_test[inds_test,:].T,  c= ["r"]*500 + ["b"]*500, marker= 'v', edgecolors= "k")
+    
+    inds_t = np.argsort(y_t)
+    plt.scatter(*X_t[inds_t,].T, c= ["r"]*(nPts//2) + ["b"]*(nPts//2), edgecolors= "k", marker= "v")
+    # inds_test = np.argsort(y_test)
+    # plt.scatter(*X_test[inds_test,:].T,  c= ["r"]*500 + ["b"]*500, marker= 'v', edgecolors= "k")
     
     plt.legend(["Source", "Target"])
     
@@ -108,16 +127,11 @@ for thetaDeg in np.arange(50, 60, 10):
 
     plt.xlim([-2,2])
     plt.ylim([-2,2])
-    plt.tick_params(
-    axis='x',          # changes apply to the x-axis
-    which='both',      # both major and minor ticks are affected
-    bottom=False,      # ticks along the bottom edge are off
-    top=False,         # ticks along the top edge are off
-    labelbottom=False) 
-    plt.tick_params(
-    axis='y',          # changes apply to the y-axis
-    which='both',      # both major and minor ticks are affected
-    bottom=False,      # ticks along the bottom edge are off
-    top=False,         # ticks along the top edge are off
-    labelbottom=False) 
+    tick_params_x = {"axis": "x", "which": "both", "top": False, "bottom": False, 
+                   "labeltop": False, "labelbottom": False}
+    tick_params_y = {"axis": "y", "which": "both", "left": False, "right": False, 
+                   "labelleft": False, "labelright": False}
+    plt.tick_params(**tick_params_x) 
+    plt.tick_params(**tick_params_y) 
+    # plt.savefig("angle%d.pgf"%thetaDeg, format= "pgf", bbox_inches='tight')
     plt.savefig("angle%d.pdf"%thetaDeg, format= "pdf", bbox_inches='tight')

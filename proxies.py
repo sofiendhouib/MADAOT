@@ -50,30 +50,40 @@ def derSmAbs(x):
 from matplotlib import pyplot as plt
 import numpy as np
 
-plt.rcParams.update({
+plt.rcParams.update({"font.family":"serif",
     "pgf.texsystem": "pdflatex",
     "pgf.preamble": [
-         r"\usepackage[utf8x]{inputenc}",
+         r"\usepackage[utf8]{inputenc}",
          r"\usepackage[T1]{fontenc}",
-         r"\usepackage{cmbright}",
+         r"\usepackage{serif}",
+         r"\usepackage{amsmath, amsfonts, amssymb, amstext, amsthm, bbm, mathtools}",
          ]
 })
 
+plt.rc('text', usetex=True)
 
-vec =  np.linspace(-2e-1,2e-1,101)
 
-fig = plt.figure()
-plt.plot(vec, pos(vec), '--')
-plt.plot(vec, smPos(vec))
-plt.legend(["positive part", "smooth proxy"])
-plt.ticklabel_format(useMathText= True, useOffset= True)
-plt.grid('on')
-plt.savefig("pos_proxy.pgf", format = "pdf", bbox_inches='tight')
 
-#%
-fig = plt.figure()
-plt.plot(vec, np.abs(vec), '--')
-plt.plot(vec, smAbs(vec))
-plt.legend(["absolute value", "smooth proxy"])
-plt.grid('on')
-plt.savefig("abs_proxy.pgf", format = "pgf", bbox_inches='tight')
+# vec =  np.linspace(-2e-1,2e-1,101)
+
+# fig = plt.figure()
+# plt.plot(vec, pos(vec), '--')
+# plt.plot(vec, smPos(vec))
+# plt.legend(["positive part", "smooth proxy"], fontsize= "x-large", loc= "lower right")
+# #plt.ticklabel_format(useMathText= True, useOffset= True)
+# plt.grid('on')
+# plt.savefig("pos_proxy.pgf", format = "pgf", bbox_inches='tight')
+
+# #%
+# fig = plt.figure()
+# plt.plot(vec, np.abs(vec), '--')
+# plt.plot(vec, smAbs(vec))
+# plt.legend([r"absolute value", r"smooth proxy"], fontsize= "x-large", loc= "lower right")
+# plt.grid('on')
+# plt.savefig("abs_proxy.pgf", format = "pgf", bbox_inches='tight')
+
+# M = np.random.random((100,2))
+
+# plt.scatter(*M.T)
+# plt.savefig("test.pgf", format = "pgf", bbox_inches='tight')
+

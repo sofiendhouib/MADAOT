@@ -18,7 +18,7 @@ def infEMD(r, c, maxIter, threshold, GammasDotCosts, XXw_s, XXw_t, GammaMats, di
     for i in range(maxIter):
         
         p = cvx.Variable(GammasDotCosts.shape[0], nonneg= True)
-        problemAlgo = cvx.Problem(cvx.Minimize(cvx.log_sum_exp(cold*GammasDotCosts.T*p)), constraints= [cvx.sum(p)==1])
+        problemAlgo = cvx.Problem(cvx.Minimize(cvx.log_sum_exp(cold*GammasDotCosts.T@p)), constraints= [cvx.sum(p)==1])
         
         try:
             problemAlgo.solve(solver= 'MOSEK')
