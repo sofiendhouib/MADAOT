@@ -1,3 +1,5 @@
+Code for paper [Margin-aware Adversarial Domain Adaptation with Optimal Transport](http://proceedings.mlr.press/v119/dhouib20b.html)
+
 # Dependencies:
 * Numpy >= 1.18.1
 * POT >= 0.6.0
